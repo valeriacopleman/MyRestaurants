@@ -1,9 +1,17 @@
 <h1>Edit Restaurant</h1>
-<%= form_for(@restaurant) do |f| %>
+<%= form_for @restaurant do |f| %>
 
   <%= f.label :name %>
   <%= f.text_field :name %><br>
-  
-  
+
+    <%= f.hidden_field :category_id %>
+    <p>Select a category:</p>
+    <%= f.collection_select :category_id, Category.all, :id, :name, include_blank: "Choose Category"%><br>
+    <p>Or make a new category:</p>
+      <%= f.fields_for :category, @restaurant.build_category do |category_fields| %>
+      <%= category_fields.label :category %>
+      <%= category_fields.text_field :name %><br>
+      <% end %>
+  <br>
   <%= f.submit %>
 <% end %>

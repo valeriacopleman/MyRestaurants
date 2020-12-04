@@ -6,6 +6,10 @@ class RestaurantsController < ApplicationController
         @restaurants = Restaurant.all
     end
 
+    def show
+        @restaurant = Restaurant.find_by(id: params[:id])
+    end
+
     def new
         @restaurant = Restaurant.new
     end
@@ -18,6 +22,19 @@ class RestaurantsController < ApplicationController
         else 
             render :new
         end
+    end
+
+    def edit
+        @restaurant = Restaurant.find_by(id: params[:id])
+    end
+
+    def update
+        @restaurant = Restaurant.find_by(id: params[:id])
+    end
+
+    def destroy
+        @restaurant.destroy
+        redirect_to restaurants_path
     end
 
 

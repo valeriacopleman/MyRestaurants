@@ -1,14 +1,16 @@
 class User < ApplicationRecord
 
   validates :username, presence: true
-  
+
+  has_many :restaurants
+  has_many :categories, through: :restaurants
+  accepts_nested_attributes_for :restaurants
   # Include default devise modules. Others available are:
   # :confirmable, :lockable, :timeoutable, :trackable and :omniauthable
   devise :database_authenticatable, :registerable,
          :recoverable, :rememberable, :validatable, :omniauthable
   
   def self.from_omniauth(auth)
-    binding.pry
     where(provider: auth.provider, uid: auth.uid).first_or_create do |user|
       user.provider = auth.provider
       user.username = auth.info.name

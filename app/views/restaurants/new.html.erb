@@ -1,17 +1,37 @@
-<h1>New Restaurant</h1>
-<%= form_for @restaurant do |f| %>
+<h1>Add Restaurant</h1>
+<% if @category %>
+    <h2>Category name: <%= @category.name %></h2>
+<% end %>
 
-  <%= f.label :name %>
-  <%= f.text_field :name %><br>
+<% if @restaurant.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(@restaurant.errors.count, "error") %> prohibited this category from being saved:</h2>
+      <ul>
+        <% @restaurant.errors.full_messages.each do |message| %>
+          <li><%= message %></li>
+        <% end %>
+      </ul>
+    </div>
+  <% end %>
 
-    <%= f.hidden_field :category_id %>
-    <p>Select a category:</p>
-    <%= f.collection_select :category_id, Category.all, :id, :name, include_blank: "Choose Category"%><br>
-    <p>Or make a new category:</p>
-      <%= f.fields_for :category, @restaurant.build_category do |category_fields| %>
-      <%= category_fields.label :category %>
-      <%= category_fields.text_field :name %><br>
-      <% end %>
+
+<%= form_for [@category, @restaurant] do |f|%>
+
+    <% if !@category %>
+        <%= f.label :category %>
+        <%= f.collection_select :category_id, Category.all, :id, :name, include_blank: "Choose Category"%><br>
+   
+        <p>Or make a new category:</p>
+            <%= f.fields_for :category, @restaurant.build_category do |category_fields| %>
+                <%= category_fields.label :category %>
+                <%= category_fields.text_field :name %><br>
+            <% end %>
+    <% else %>
+           <%= f.hidden_field :category_id  %>
+    <% end%>
+
+    <%= f.label :name %>
+    <%= f.text_field :name %><br>
   <br>
   <%= f.submit %>
 <% end %>

@@ -3,6 +3,9 @@
 <%= form_for @category do |f| %>
     <%= f.label :name %>
     <%= f.text_field :name %>
-
+        <%= f.fields_for :restaurants, @restaurant do |restaurant_form| %>
+            <%= restaurant_form.label :name %>
+            <%= restaurant_form.text_field :name %>
+        <% end %>
     <%= f.submit %>
 <% end %>

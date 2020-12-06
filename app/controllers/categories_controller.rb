@@ -1,20 +1,24 @@
 class CategoriesController < ApplicationController
 
     before_action :authenticate_user!
-
+    
     def index
         @categories = current_user.categories.all
     end
+
+    def show
+        @category = Category.find_by(id: params[:id])
+    end
     
-    def new
+    def new 
         @category = Category.new
-        @restaurant = @category.books.build
+        @restaurant = @category.restaurants.build
     end
 
     def create 
-        Category.find_by(name: category_params[:name])
+        category = Category.find_by(name: category_params[:name])
         if !category
-            category = Category.create[author_params]
+            category = Category.create[category_params]
         end
         redirect_to category
     end
@@ -22,9 +26,9 @@ class CategoriesController < ApplicationController
     private
 
     def category_params
-        params.require(:restaurant).permit(
+        params.require(:category).permit(
             :name,
-            restaurant_attributes[
+            restaurants_attributes: [
                 :name
             ]
         )

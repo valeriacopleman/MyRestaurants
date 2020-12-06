@@ -1,0 +1,10 @@
+<h1><%= @category.name %></h1>
+
+<h3>Restaurants:</h3>
+<button><%= link_to 'See Restaurants', category_restaurants_path(@category) %></button>
+<br>
+<br>
+<button><%= link_to 'Add Restaurant', new_category_restaurant_path(@category) %></button>
+<br>
+<br>
+<button><%= link_to 'Back', root_path %></button>

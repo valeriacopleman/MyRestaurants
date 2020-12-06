@@ -14,8 +14,10 @@
     </div>
   <% end %>
 
-
 <%= form_for [@category, @restaurant] do |f|%>
+    <%= f.label :name %>
+    <%= f.text_field :name %><br>
+    <br>
 
     <% if !@category %>
         <%= f.label :category %>
@@ -30,8 +32,7 @@
            <%= f.hidden_field :category_id  %>
     <% end%>
 
-    <%= f.label :name %>
-    <%= f.text_field :name %><br>
+    
   <br>
   <%= f.submit %>
 <% end %>

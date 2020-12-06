@@ -1,25 +1,12 @@
 # README
+## MyRestaurants
 
-This README would normally document whatever steps are necessary to get the
-application up and running.
+Welcome to MyRestaurants!
 
-Things you may want to cover:
+Make sure to clone and run bundle. 
 
-* Ruby version
+This app is going to help the user create list of restaurants and sort in different categories. 
 
-* System dependencies
+## License 
 
-* Configuration
-
-* Database creation
-
-* Database initialization
-
-* How to run the test suite
-
-* Services (job queues, cache servers, search engines, etc.)
-
-* Deployment instructions
-
-* ...
-# MyRestaurants
+This project is licensed under the MIT License - see the [LICENSE](https://github.com/valeriacopleman/myrestaurants/blob/main/LICENSE.txt) file for details

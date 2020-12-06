@@ -8,7 +8,9 @@ Rails.application.routes.draw do
     get 'signup', to: 'devise/registrations#new', as: 'signup'
   end
   
-  resources :categories
+  resources :categories do 
+    resources :restaurants, only: [:new, :create, :index]
+  end
   resources :restaurants
 
 end

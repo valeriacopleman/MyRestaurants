@@ -3,11 +3,15 @@ class RestaurantsController < ApplicationController
     before_action :authenticate_user!
 
     def index
-        @restaurants = Restaurant.all
+        @restaurants = current_user.restaurants.all
     end
 
     def show
-        @restaurant = Restaurant.find_by(id: params[:id])
+        @restaurant = current_user.restaurants.find_by(id: params[:id])
+        if !@restaurant
+            redirect_to restaurants_path
+        end
+
     end
 
     def new
@@ -29,7 +33,9 @@ class RestaurantsController < ApplicationController
     end
 
     def update
-        @restaurant = Restaurant.find_by(id: params[:id])
+        @restaurant = Restaurant.find(params[:id])
+        @restaurant.update(restaurant_params)
+        redirect_to restaurant_path(@restaurant)
     end
 
     def destroy

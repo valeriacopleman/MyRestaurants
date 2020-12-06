@@ -11,6 +11,7 @@ Rails.application.routes.draw do
   resources :categories do 
     resources :restaurants, only: [:new, :create, :index]
   end
+
   resources :restaurants
 
 end

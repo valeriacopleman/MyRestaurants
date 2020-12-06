@@ -7,7 +7,10 @@ class CategoriesController < ApplicationController
     end
 
     def show
-        @category = Category.find_by(id: params[:id])
+        @category = current_user.categories.find_by(id: params[:id])
+        if !@category
+            redirect_to root_path
+        end
     end
     
     def new 
@@ -18,9 +21,17 @@ class CategoriesController < ApplicationController
     def create 
         category = Category.find_by(name: category_params[:name])
         if !category
-            category = Category.create[category_params]
+            category = current_user.categories.create(category_params)
         end
         redirect_to category
+        binding.pry
+    end
+
+    def destroy
+        @restaurants = Restaurant.where(category_id: params[:category.id])
+        @restaurants.each do |restaurant|
+            restaurant.destroy
+        end
     end
 
     private

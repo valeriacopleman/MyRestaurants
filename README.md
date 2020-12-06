@@ -9,4 +9,4 @@ This app is going to help the user create list of restaurants and sort in differ
 
 ## License 
 
-This project is licensed under the MIT License - see the [LICENSE](https://github.com/valeriacopleman/myrestaurants/blob/main/LICENSE.txt) file for details
+This project is licensed under the MIT License - see the [LICENSE](https://github.com/valeriacopleman/MyRestaurants/blob/main/LICENSE.TXT) file for details

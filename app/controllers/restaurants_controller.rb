@@ -3,15 +3,19 @@ class RestaurantsController < ApplicationController
     before_action :authenticate_user!
 
     def index
-        @restaurants = current_user.restaurants.all
-        @category = Category.find_by(id: params[:category_id])
+        if params[:category_id] && @category = Category.find_by(id: params[:category_id])
+            @restaurants = current_user.restaurants
+        else 
+            redirect_to root_path
+        end
     end
 
     def show
-       @restaurant = current_user.restaurants.find_by(id: params[:id])
-       if !@restaurant
+        @category = Category.find_by(id: params[:id])
+        @restaurant = current_user.restaurants.find_by(id: params[:id])
+        if !@category
             redirect_to root_path
-       end
+        end
     end
 
     def new
@@ -32,6 +36,7 @@ class RestaurantsController < ApplicationController
             end
         else
             @restaurant = current_user.restaurants.create(restaurant_params)
+            redirect_to root_path
         end
      
     end

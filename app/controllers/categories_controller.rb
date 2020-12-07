@@ -4,10 +4,12 @@ class CategoriesController < ApplicationController
     
     def index
         @categories = current_user.categories.all
+        
     end
 
     def show
         @category = current_user.categories.find_by(id: params[:id])
+        @restaurant = current_user.restaurants
         if !@category
             redirect_to root_path
         end
@@ -24,7 +26,7 @@ class CategoriesController < ApplicationController
             category = current_user.categories.create(category_params)
         end
         redirect_to category
-        binding.pry
+       
     end
 
     def destroy

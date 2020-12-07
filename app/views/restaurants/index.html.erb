@@ -1,12 +1,12 @@
 <h1>My Restaurants</h1>
-
-    <% @category.restaurants.each do |restaurant| %>
+<% if params[:category_id]%>
+    <% @restaurants.each do |restaurant| %>
     <li><%= restaurant.name %></li>
     <li><%= link_to 'Edit', edit_restaurant_path(restaurant) %></li>
     <% end %>
-   
+ <%end %>
 <br>
 <br>
 
-<button><%= link_to 'Add Restaurant', new_restaurant_path %></button>
-<button><%= link_to 'Back', categories_path %></button>
+<button><%= link_to 'Add Restaurant', new_category_restaurant_path %></button>
+<button><%= link_to 'Back', root_path %></button>

@@ -1,7 +1,7 @@
 <h1>My Restaurants</h1>
 <h2>Categories</h2>
 <% @categories.each do |category|%>
-    <li><%= link_to category.name, category %></li>
+    <li><%= link_to category.name, category_restaurants_path(category) %></li>
 <% end %>
 
 <br>

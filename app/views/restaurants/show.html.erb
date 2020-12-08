@@ -1,9 +1,13 @@
-<h1><%= @restaurant.name %></h1>
-<p>Category:</p>
-<li><%= @restaurant.category.name %></li><br>
 
+<% if @restaurant.category.name %>
+     <h1><%= @restaurant.name %></h1>
+    <p>Category:</p>
+    <li><%= @restaurant.category.name %></li><br>
+<% else %>
+    <h1><%= @restaurant.name %></h1>
+<% end %>
 <%= link_to 'Edit', edit_restaurant_path %>
 <br>
 <br>
 
-<button><%= link_to 'Back', root_path %></button>
+<button><%= link_to 'Back', category_restaurants_path(@category) %></button>

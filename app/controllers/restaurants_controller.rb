@@ -29,15 +29,15 @@ class RestaurantsController < ApplicationController
 
     def create
         if params[:category_id] && @category = current_user.categories.find_by(id: params[:category_id])
-            @restaurant = current_user.restaurants.build(restaurant_params)
+            @restaurant = current_user.restaurants.create(restaurant_params)
             if @restaurant.save
-                redirect_to category_restaurants_path
+                render :show
             else
                 render :new
             end
         else
             @restaurant = current_user.restaurants.create(restaurant_params)
-            redirect_to root_path
+            render :show
         end
      
     end
@@ -49,16 +49,7 @@ class RestaurantsController < ApplicationController
     def update
         @restaurant = Restaurant.find(params[:id])
         @restaurant.update(restaurant_params)
-        redirect_to restaurant_path(@restaurant)
-    end
-
-    def destroy
-        if params[:category_id] && @category = Category.find_by(id: params[:category_id])
-            @category.restaurants.destroy
-            redirect_to root_path
-        else 
-            redirect_to categories_path
-        end
+        redirect_to @restaurant
     end
 
     

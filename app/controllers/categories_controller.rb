@@ -17,7 +17,6 @@ class CategoriesController < ApplicationController
         if !category
             category = current_user.categories.create(category_params)
         end
-        redirect_to category
        
     end
 

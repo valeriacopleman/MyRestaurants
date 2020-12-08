@@ -1,7 +1,8 @@
 <h1>My Restaurants</h1>
 <% if params[:category_id]%>
+    <h2>Category: <%= @category.name %></h2>
     <% @restaurants.each do |restaurant| %>
-    <li><%= restaurant.name %> - <%= link_to 'Edit', edit_restaurant_path(restaurant) %></li>
+    <li><%= restaurant.name %> - <%= link_to 'Edit', edit_restaurant_path(restaurant) %></li><br>
     <% end %>
  <%end %>
 <br>

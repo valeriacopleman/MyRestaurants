@@ -5,7 +5,7 @@ class RestaurantsController < ApplicationController
     def index
         if params[:category_id] && @category = current_user.categories.find_by(id: params[:category_id])
             #binding.pry
-            @restaurants = current_user.restaurants.where(category_id: @category.id)
+            @restaurants = current_user.restaurants.where(category_id: @category.id).uniq
         else 
             redirect_to root_path
         end

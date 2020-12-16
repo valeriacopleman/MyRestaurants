@@ -4,7 +4,6 @@ class RestaurantsController < ApplicationController
 
     def index
         if params[:category_id] && @category = current_user.categories.find_by(id: params[:category_id])
-            #binding.pry
             @restaurants = current_user.restaurants.where(category_id: @category.id).uniq
         else 
             redirect_to root_path
@@ -14,10 +13,12 @@ class RestaurantsController < ApplicationController
     def show
         @category = Category.find_by(id: params[:id])
         @restaurant = current_user.restaurants.find_by(id: params[:id])
-        if !@category
+        if !@category || !@restaurant
             redirect_to root_path
+        else 
+            render 'restaurants/show'
         end
-    end
+    end 
 
     def new
         if params[:category_id] && @category = current_user.categories.find_by(id: params[:category_id])
@@ -31,25 +32,38 @@ class RestaurantsController < ApplicationController
         if params[:category_id] && @category = current_user.categories.find_by(id: params[:category_id])
             @restaurant = current_user.restaurants.create(restaurant_params)
             if @restaurant.save
-                render :show
+                render 'restaurants/show'
+            
             else
                 render :new
             end
         else
             @restaurant = current_user.restaurants.create(restaurant_params)
-            render :show
-        end
-     
+            if @restaurant.save
+                render 'restaurants/show'
+            else
+                render :new
+            end
+        end 
     end
 
     def edit
-        @restaurant = Restaurant.find_by(id: params[:id])
+        @restaurant = current_user.restaurants.find_by(id: params[:id])
+        @category = Category.find_by(id: params[:id])
+        if !@restaurant
+            redirect_to root_path
+        end
     end
 
     def update
         @restaurant = Restaurant.find(params[:id])
-        @restaurant.update(restaurant_params)
-        redirect_to @restaurant
+        if !params[:restaurant][:name].empty? && !params[:restaurant][:category_id].empty?
+            @restaurant.update(restaurant_params)
+            render 'restaurants/show'
+        else
+            flash.now[:notice] = "Error"
+            redirect_to edit_restaurant_path
+        end
     end
 
     

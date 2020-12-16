@@ -6,19 +6,6 @@ class CategoriesController < ApplicationController
         @categories = current_user.categories.uniq
         
     end
-    
-    def new 
-        @category = Category.new
-        @restaurant = @category.restaurants.build
-    end
-
-    def create 
-        category = Category.find_by(name: params[:name])
-        if !category
-            category = current_user.categories.create(category_params)
-        end
-       
-    end
 
     private
 

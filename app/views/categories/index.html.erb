@@ -6,6 +6,7 @@
 
 <br>
 <br>
+<p>Recently added restaurant: <%= Restaurant.recent.limit(1)[0][:name] %></p>
 <button><%= link_to 'Add Restaurant', new_restaurant_path %></button>
 
 

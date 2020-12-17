@@ -8,5 +8,7 @@ class Restaurant < ApplicationRecord
   
   scope :recent, -> { order(created_at: :desc) }
 
+  scope :alpha, -> { order :name }
+
 end
 

@@ -4,7 +4,9 @@ class RestaurantsController < ApplicationController
 
     def index
         if params[:category_id] && @category = current_user.categories.find_by(id: params[:category_id])
-            @restaurants = current_user.restaurants.where(category_id: @category.id).uniq
+            #@restaurants = current_user.restaurants.where(category_id: @category.id).uniq
+            @restaurants = Restaurant.alpha.where(user_id: current_user.id).where(category_id: @category.id).uniq
+
         else 
             redirect_to root_path
         end
@@ -30,7 +32,7 @@ class RestaurantsController < ApplicationController
 
     def create
         if params[:category_id] && @category = current_user.categories.find_by(id: params[:category_id])
-            @restaurant = current_user.restaurants.create(restaurant_params)
+            @restaurant = current_user.restaurants.build(restaurant_params)
             if @restaurant.save
                 render 'restaurants/show'
             
@@ -38,7 +40,7 @@ class RestaurantsController < ApplicationController
                 render :new
             end
         else
-            @restaurant = current_user.restaurants.create(restaurant_params)
+            @restaurant = current_user.restaurants.build(restaurant_params)
             if @restaurant.save
                 render 'restaurants/show'
             else
